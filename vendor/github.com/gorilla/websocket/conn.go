@@ -10,6 +10,7 @@ import (
 	"errors"
 	"io"
 	"io/ioutil"
+	"log"
 	"math/rand"
 	"net"
 	"strconv"
@@ -889,11 +890,15 @@ func (c *Conn) advanceFrame() (int, error) {
 
 	switch frameType {
 	case PongMessage:
+		log.Println("PONGG")
 		if err := c.handlePong(string(payload)); err != nil {
+			log.Println("ERROR PONGG", err)
 			return noFrame, err
 		}
 	case PingMessage:
+		log.Println("PINGG")
 		if err := c.handlePing(string(payload)); err != nil {
+			log.Println("ERROR PINGG", err)
 			return noFrame, err
 		}
 	case CloseMessage:
